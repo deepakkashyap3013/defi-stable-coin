@@ -32,7 +32,7 @@ pragma solidity ^0.8.19;
 import {DecentralisedStableCoin} from "src/DecentralisedStableCoin.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import {OracleLib, AggregatorV3Interface} from "./libraries/OracleLib.sol";
 
 /**
  * @title DSCEngine
@@ -66,6 +66,11 @@ contract DSCEngine is ReentrancyGuard {
     error DSCEngine__TransferFailed();
     error DSCEngine__HealthFactorOK();
     error DSCEngine__HealthFactorNotImprovedAterLiquidation();
+
+    /**
+     * Types
+     */
+    using OracleLib for AggregatorV3Interface;
 
     /**
      * state variables
