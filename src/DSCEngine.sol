@@ -142,12 +142,12 @@ contract DSCEngine is ReentrancyGuard {
      * @param amountDscToMint: The amount of DSC you want to mint
      * @notice This function will deposit your collateral and mint DSC in one transaction
      */
-    function depositeCollateralAndMintDsc(
+    function depositCollateralAndMintDsc(
         address tokenCollateralAddress,
         uint256 amountCollateral,
         uint256 amountDscToMint
     ) external {
-        depositeCollateral(tokenCollateralAddress, amountCollateral);
+        depositCollateral(tokenCollateralAddress, amountCollateral);
         mintDsc(amountDscToMint);
     }
 
@@ -270,7 +270,7 @@ contract DSCEngine is ReentrancyGuard {
      * @param amountCollateral the amount of collateral deposited
      * @notice follows CEI pattern
      */
-    function depositeCollateral(address tokenCollateralAddress, uint256 amountCollateral)
+    function depositCollateral(address tokenCollateralAddress, uint256 amountCollateral)
         public
         moreThanZero(amountCollateral)
         isAllowedToken(tokenCollateralAddress)

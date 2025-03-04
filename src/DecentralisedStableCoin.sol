@@ -21,10 +21,14 @@
 // external & public view & pure functions
 
 // SPDX-License-Identifier: MIT
-/** solidity version */
+/**
+ * solidity version
+ */
 pragma solidity ^0.8.19;
 
-/** imports */
+/**
+ * imports
+ */
 import {ERC20Burnable, ERC20} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -39,13 +43,17 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
  * DSCEngine smart contract.
  */
 contract DecentralisedStableCoin is ERC20Burnable, Ownable {
-    /** errors */
+    /**
+     * errors
+     */
     error DecentralisedStableCoin__MustBeGreaterThanZero();
     error DecentralisedStableCoin__BurnAmountExceedsBalance();
     error DecentralizedStableCoin__InvalidZeroAddress();
     error DecentralizedStableCoin__AmountMustBeMoreThanZero();
 
-    /** constructor */
+    /**
+     * constructor
+     */
     constructor() ERC20("DecentralisedStableCoin", "DSC") Ownable(msg.sender) {}
 
     /**
@@ -58,16 +66,13 @@ contract DecentralisedStableCoin is ERC20Burnable, Ownable {
         if (_amount <= 0) {
             revert DecentralisedStableCoin__MustBeGreaterThanZero();
         }
-        if (senderBalance <= _amount) {
+        if (senderBalance < _amount) {
             revert DecentralisedStableCoin__BurnAmountExceedsBalance();
         }
         super.burn(_amount);
     }
 
-    function mint(
-        address _to,
-        uint256 _amount
-    ) external onlyOwner returns (bool) {
+    function mint(address _to, uint256 _amount) external onlyOwner returns (bool) {
         if (_to == address(0)) {
             revert DecentralizedStableCoin__InvalidZeroAddress();
         }
